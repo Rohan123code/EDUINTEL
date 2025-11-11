@@ -2,7 +2,7 @@
 .env
 .aipdf
 __pycache__
-admin/__pycache__
+./admin/__pycache__
 user/__pycache__
 core/__pycache__
 utils/__pycache__
