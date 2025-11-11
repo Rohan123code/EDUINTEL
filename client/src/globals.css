@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+VN:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  -–main-blue: #0288d1;
+  -–main-aqua: #00b0ff;
+  -–main-b: aqua;
+}
+  
+  
+
+@layer base {
+    * {
+      @apply box-border list-none p-0 m-0 scroll-smooth;
+    }
+  
+    body {
+      @apply bg-white text-black min-h-screen font-inter;
+    }
+}
+  
+
+
+@layer utilities {
+    /* TYPOGRAPHY */
+    .bona-nova-sc-regular {
+      font-family: "Bona Nova SC", serif;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 50px;
+    }
+    
+    .bona-nova-sc-bold {
+      font-family: "Bona Nova SC", serif;
+      font-weight: 700;
+      font-style: normal;
+    }
+    
+    .bona-nova-sc-regular-italic {
+      font-family: "Bona Nova SC", serif;
+      font-weight: 400;
+      font-style: italic;
+    }
+    .playwrite-vn-h1 {
+      font-family: "Playwrite VN", serif;
+      font-optical-sizing: auto;
+      font-weight: 500;
+      font-style: normal;
+    }
+    .container {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+
+  }

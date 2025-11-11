@@ -39,9 +39,6 @@ async def ask_user_question(query: str):
     if not api_key:
         return {"status": "error", "message": "PERPLEXITY_API_KEY not found in environment"}
 
-    # --------------------------
-    # Load Embedder
-    # --------------------------
     embedder = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
     # --------------------------
@@ -59,7 +56,7 @@ async def ask_user_question(query: str):
     # --------------------------
     # Search similar chunks
     # --------------------------
-    docs = vector_store.similarity_search(query, k=5)
+    docs = vector_store.similarity_search(query, k=3)
 
     if len(docs) == 0:
         return {"status": "error", "message": "No relevant documents found"}
