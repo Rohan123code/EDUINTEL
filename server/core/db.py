@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy import create_engine, Column, Integer, String , Text
 from sqlalchemy.orm import sessionmaker, declarative_base
 import os
 from dotenv import load_dotenv
@@ -19,6 +19,9 @@ class PDF(Base):
     filename = Column(String(255))
     cloud_url = Column(String(255))
     cloud_id = Column(String, nullable=False)
+    pdf_title = Column(String(255), nullable=False)
+    pdf_description = Column(Text, nullable=False) 
+    uploaded_by = Column(String(255), nullable=False)
     vector_count = Column(Integer)
 
 

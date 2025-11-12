@@ -1,0 +1,52 @@
+{
+    "test2.pdf": {
+        "start": 190,
+        "end": 220,
+        "pdf_name": "test2.pdf",
+        "cloud_url": "https://res.cloudinary.com/draplsr9p/raw/upload/v1762864325/rag_pdfs/uovo46slv3sbcsoo1k2y.pdf",
+        "cloud_id": "rag_pdfs/uovo46slv3sbcsoo1k2y.pdf",
+        "pdf_title": "hhh",
+        "pdf_description": "dhius",
+        "uploaded_by": "134"
+    },
+    "test.pdf": {
+        "start": 225,
+        "end": 245,
+        "pdf_name": "test.pdf",
+        "cloud_url": "https://res.cloudinary.com/draplsr9p/raw/upload/v1762869880/rag_pdfs/gigdegf0ujmoo2pwvz79.pdf",
+        "cloud_id": "rag_pdfs/gigdegf0ujmoo2pwvz79.pdf",
+        "pdf_title": "this is pdf",
+        "pdf_description": "for testing",
+        "uploaded_by": "134"
+    },
+    "Nishant_CV.pdf": {
+        "start": 245,
+        "end": 250,
+        "pdf_name": "Nishant_CV.pdf",
+        "cloud_url": "https://res.cloudinary.com/draplsr9p/raw/upload/v1762870429/rag_pdfs/plb5qkrdnmcdb74w4sms.pdf",
+        "cloud_id": "rag_pdfs/plb5qkrdnmcdb74w4sms.pdf",
+        "pdf_title": "nishant cv",
+        "pdf_description": "this is cv",
+        "uploaded_by": "134"
+    },
+    "ayush_cv.pdf": {
+        "start": 250,
+        "end": 252,
+        "pdf_name": "ayush_cv.pdf",
+        "cloud_url": "https://res.cloudinary.com/draplsr9p/raw/upload/v1762870689/rag_pdfs/xfc1o9belategn82pzch.pdf",
+        "cloud_id": "rag_pdfs/xfc1o9belategn82pzch.pdf",
+        "pdf_title": "ayush cv",
+        "pdf_description": "this cv of ayush",
+        "uploaded_by": "134"
+    },
+    "isha_cv.pdf": {
+        "start": 252,
+        "end": 253,
+        "pdf_name": "isha_cv.pdf",
+        "cloud_url": "https://res.cloudinary.com/draplsr9p/raw/upload/v1762921411/rag_pdfs/fbzrqixhjv9krl14knjb.pdf",
+        "cloud_id": "rag_pdfs/fbzrqixhjv9krl14knjb.pdf",
+        "pdf_title": "isha cv",
+        "pdf_description": "tgis is cv of isha\r\n",
+        "uploaded_by": "134"
+    }
+}

@@ -13,17 +13,20 @@ from langchain.embeddings import HuggingFaceEmbeddings
 from core.db import SessionLocal, PDF
 import os
 import shutil
+from sqlalchemy.orm import Session
 
 VECTOR_PATH = "vectorstore/"
 MAPPING_PATH = "vectorstore/mapping.json"
-async def process_pdf(file: UploadFile):
-    from sqlalchemy.orm import Session
+async def process_pdf(file: UploadFile, pdf_title: str, pdf_description: str, uploaded_by: int):
+  
 
     # --------------------------
     # Duplicate Check (MySQL)
     # --------------------------
+    
     db: Session = SessionLocal()
     existing = db.query(PDF).filter(PDF.filename == file.filename).first()
+    print("exispt",existing)
     if existing:
         return {"status": "error", "message": "PDF already uploaded!"}
 
@@ -63,11 +66,6 @@ async def process_pdf(file: UploadFile):
     model_name = "sentence-transformers/all-MiniLM-L6-v2"
     embedder = HuggingFaceEmbeddings(model_name=model_name)
 
-    print("🔄 Creating embeddings for chunks...")
-
-    # --------------------------
-    # Load existing FAISS or create new
-    # --------------------------
     try:
         faiss_store_old = FAISS.load_local(
             VECTOR_PATH,
@@ -75,41 +73,36 @@ async def process_pdf(file: UploadFile):
             allow_dangerous_deserialization=True
         )
         start_id = len(faiss_store_old.index_to_docstore_id)
-        print("📥 Existing FAISS found. Appending…")
-
     except Exception:
-        print("📦 No FAISS found — creating new store.")
         faiss_store_old = None
         start_id = 0
 
-    # --------------------------
-    # ADD METADATA TO EACH CHUNK
-    # --------------------------
+    # Metadata per chunk
     metadatas = [
-        {"doc_id": start_id + i, "pdf_name": file.filename, "cloud_id": cloud_id}
+        {
+            "doc_id": start_id + i,
+            "pdf_name": file.filename,
+            "cloud_id": cloud_id,
+            "pdf_title": pdf_title,
+            "pdf_description": pdf_description,
+            "uploaded_by": uploaded_by
+        }
         for i in range(len(chunks))
     ]
 
-    # Create new FAISS index WITH metadata
-    faiss_store_new = FAISS.from_texts(
-        chunks,
-        embedder,
-        metadatas=metadatas
-    )
+    faiss_store_new = FAISS.from_texts(chunks, embedder, metadatas=metadatas)
 
-    # Merge if FAISS exists
     if faiss_store_old:
         faiss_store_old.merge_from(faiss_store_new)
         faiss_store_old.save_local(VECTOR_PATH)
     else:
         faiss_store_new.save_local(VECTOR_PATH)
 
-    # IDs range for this PDF
     total_vectors = len(chunks)
     end_id = start_id + total_vectors
 
     # --------------------------
-    # Update Mapping JSON
+    # Update mapping.json
     # --------------------------
     try:
         with open(MAPPING_PATH, "r") as f:
@@ -122,7 +115,10 @@ async def process_pdf(file: UploadFile):
         "end": end_id,
         "pdf_name": file.filename,
         "cloud_url": cloud_url,
-        "cloud_id": cloud_id
+        "cloud_id": cloud_id,
+        "pdf_title": pdf_title,
+        "pdf_description": pdf_description,
+        "uploaded_by": uploaded_by
     }
 
     with open(MAPPING_PATH, "w") as f:
@@ -135,6 +131,9 @@ async def process_pdf(file: UploadFile):
         filename=file.filename,
         cloud_url=cloud_url,
         cloud_id=cloud_id,
+        pdf_description=pdf_description,
+        pdf_title=pdf_title,
+        uploaded_by=uploaded_by,
         vector_count=total_vectors
     )
 
@@ -148,5 +147,8 @@ async def process_pdf(file: UploadFile):
         "filename": file.filename,
         "cloud_url": cloud_url,
         "cloud_id": cloud_id,
+        "title": pdf_title,
+        "description": pdf_description,
+        "uploaded_by": uploaded_by,
         "vectors": total_vectors
     }
